@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+  namespace: freelancer-marketplace
+data:
+  PORT: "3000"
+  MONGODB_URI: "mongodb://mongodb:27017/freelancer-marketplace"
+  NODE_ENV: "production"
