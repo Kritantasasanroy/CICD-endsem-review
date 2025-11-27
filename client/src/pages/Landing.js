@@ -20,6 +20,7 @@ function Landing() {
           <div className="hero-illustration">
             <div className="illustration-circle"></div>
             <div className="illustration-dots"></div>
+            <div className="illustration-logo">💼</div>
           </div>
         </div>
       </section>
