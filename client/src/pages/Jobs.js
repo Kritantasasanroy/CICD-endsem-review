@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 function Jobs({ user }) {
   const [jobs, setJobs] = useState([]);
@@ -92,11 +93,19 @@ function Jobs({ user }) {
           </div>
           <span className={`badge badge-${job.status}`}>{job.status}</span>
           
-          <div style={{ marginTop: '1rem' }}>
+          <div style={{ marginTop: '1rem', display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
             {user.role === 'job_seeker' && job.status === 'open' && (
-              <button className="btn btn-primary" onClick={() => setSelectedJob(job)}>
-                Submit Proposal
-              </button>
+              <>
+                <button className="btn btn-primary" onClick={() => setSelectedJob(job)}>
+                  Submit Proposal
+                </button>
+                <Link 
+                  to={`/messages?job=${job._id}&user=${job.postedBy._id}`} 
+                  className="btn btn-primary"
+                >
+                  💬 Message Employer
+                </Link>
+              </>
             )}
             {user.role === 'worker_seeker' && job.postedBy?._id === user.id && (
               <button className="btn btn-danger" onClick={() => handleDeleteJob(job._id)}>

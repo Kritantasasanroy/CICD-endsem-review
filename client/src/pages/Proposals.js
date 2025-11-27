@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 function Proposals({ user }) {
   const [proposals, setProposals] = useState([]);
@@ -80,7 +81,7 @@ function Proposals({ user }) {
             <p><strong>Proposed Budget:</strong> ${proposal.proposedBudget}</p>
             <span className={`badge badge-${proposal.status}`}>{proposal.status}</span>
             
-            <div style={{ marginTop: '1rem' }}>
+            <div style={{ marginTop: '1rem', display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
               {user.role === 'worker_seeker' && proposal.status === 'pending' && (
                 <>
                   <button 
@@ -97,16 +98,32 @@ function Proposals({ user }) {
                   >
                     {updating === proposal._id ? 'Processing...' : 'Reject'}
                   </button>
+                  <Link 
+                    to={`/messages?job=${proposal.job._id}&user=${proposal.freelancer._id}`}
+                    className="btn btn-primary"
+                  >
+                    💬 Message Freelancer
+                  </Link>
                 </>
               )}
-              {user.role === 'job_seeker' && proposal.status === 'pending' && (
-                <button 
-                  className="btn btn-danger" 
-                  onClick={() => handleDeleteProposal(proposal._id)}
-                  disabled={updating === proposal._id}
-                >
-                  {updating === proposal._id ? 'Deleting...' : 'Delete Proposal'}
-                </button>
+              {user.role === 'job_seeker' && (
+                <>
+                  {proposal.status === 'pending' && (
+                    <button 
+                      className="btn btn-danger" 
+                      onClick={() => handleDeleteProposal(proposal._id)}
+                      disabled={updating === proposal._id}
+                    >
+                      {updating === proposal._id ? 'Deleting...' : 'Delete Proposal'}
+                    </button>
+                  )}
+                  <Link 
+                    to={`/messages?job=${proposal.job._id}&user=${proposal.job.postedBy}`}
+                    className="btn btn-primary"
+                  >
+                    💬 Message Employer
+                  </Link>
+                </>
               )}
             </div>
           </div>

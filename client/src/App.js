@@ -5,6 +5,7 @@ import Dashboard from './pages/Dashboard';
 import Jobs from './pages/Jobs';
 import Landing from './pages/Landing';
 import Login from './pages/Login';
+import Messages from './pages/Messages';
 import PostJob from './pages/PostJob';
 import Proposals from './pages/Proposals';
 import Register from './pages/Register';
@@ -37,6 +38,7 @@ function App() {
               <Link to="/jobs">Jobs</Link>
               {user.role === 'worker_seeker' && <Link to="/post-job">Post Job</Link>}
               <Link to="/proposals">Proposals</Link>
+              <Link to="/messages">Messages</Link>
               <span className="user-info">{user.name}</span>
               <button onClick={handleLogout}>Logout</button>
             </div>
@@ -51,6 +53,7 @@ function App() {
           <Route path="/jobs" element={user ? <Jobs user={user} /> : <Navigate to="/" />} />
           <Route path="/post-job" element={user?.role === 'worker_seeker' ? <PostJob /> : <Navigate to="/jobs" />} />
           <Route path="/proposals" element={user ? <Proposals user={user} /> : <Navigate to="/" />} />
+          <Route path="/messages" element={user ? <Messages user={user} /> : <Navigate to="/" />} />
         </Routes>
       </div>
     </Router>

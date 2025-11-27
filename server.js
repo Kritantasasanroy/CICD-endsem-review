@@ -7,6 +7,7 @@ const authRoutes = require('./routes/auth');
 const jobRoutes = require('./routes/jobs');
 const proposalRoutes = require('./routes/proposals');
 const userRoutes = require('./routes/users');
+const messageRoutes = require('./routes/messages');
 
 const app = express();
 
@@ -28,7 +29,8 @@ app.get('/', (req, res) => {
       auth: '/api/auth/register, /api/auth/login',
       jobs: '/api/jobs',
       proposals: '/api/proposals',
-      users: '/api/users/me'
+      users: '/api/users/me',
+      messages: '/api/messages'
     },
     health: '/health'
   });
@@ -38,6 +40,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/jobs', jobRoutes);
 app.use('/api/proposals', proposalRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/messages', messageRoutes);
 
 app.get('/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date() });
